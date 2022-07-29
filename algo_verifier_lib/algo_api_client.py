@@ -21,23 +21,30 @@ class AlgoApiClient:
 
     def format_api_call(self, endpoint: str, args: str) -> str:
         """Format HTTP/S URL with mandatory endpoint and optional query parameter API key and arguments"""
-        url = ""
-        if self.api_key and args:
-            url = f"{self.base_url}/{endpoint}?api-key={self.api_key}&{args}"
-        elif self.api_key and not args:
-            url = f"{self.base_url}/{endpoint}?api-key={self.api_key}"
-        elif not self.api_key and args:
+        if args:
             url = f"{self.base_url}/{endpoint}?{args}"
         else:
             url = f"{self.base_url}/{endpoint}"
         return url
 
-    def get_algo_app_bytecode(self, app_id: str) -> AlgoAppBytecode:
-        """Makes a call to the /v2/applications/{app_id} endpoint. Parses out and returns the approval and clear_state program bytecode"""
-        url = self.format_api_call(f"v2/applications/{app_id}", None)
-        resp = requests.get(url)
+    def api_call_with_key(self, endpoint: str, args: str, verb: str, payload: dict) -> requests.Response:
+        """Helper method to make an API call with key"""
+        url = self.format_api_call(endpoint, args)
+        api_key = {"x-api-key", self.api_key}
+        if verb == "GET":
+            resp = requests.get(url, headers=api_key)
+        elif verb == "POST":
+            if payload:
+                resp = requests.post(url, headers=api_key, json=payload)
+            else:
+                resp = requests.post(url, headers=api_key)
         if resp.status_code != 200:
             raise HTTPError
+        return resp
+
+    def get_algo_app_bytecode(self, app_id: str) -> AlgoAppBytecode:
+        """Makes a call to the /v2/applications/{app_id} endpoint. Parses out and returns the approval and clear_state program bytecode"""
+        resp = self.api_call_with_key(f"v2/applications/{app_id}", None, "GET", None)
         resp_json = resp.json()
         approval_bytecode = resp_json['approval']
         clear_state_bytecode = resp_json['clear_state']
@@ -45,13 +52,8 @@ class AlgoApiClient:
 
     def compile_teal(self, teal: str) -> str:
         """Given TEAL source code make a call to the /v2/teal/compile endpoint and return the compiled bytecode"""
-        url = self.format_api_call("v2/teal/compile", None)
-        # TODO: check actual API expected POST
         payload = {"teal": teal}
-        resp = requests.post(url, payload)
-        if resp.status_code != 200:
-            raise HTTPError
-        # TODO: where is return value actually?
+        resp = self.api_call_with_key("v2/teal/compile", None, "POST", payload)
         return resp.text()
 
     def compare_teal_to_app(self, teal_approval: str, teal_clear_state: str, app_id: str) -> bool:
@@ -60,9 +62,9 @@ class AlgoApiClient:
         Make a request to receive the bytecode that matches the application ID
         Compare the compiled bytecode to the bytecode of that application ID's
         """
-        expected_app_bytecode = self.get_algo_app_bytecode(app_id)
         approval_bytecode = self.compile_teal(teal_approval)
         clear_state_bytecode = self.compile_teal(teal_clear_state)
+        expected_app_bytecode = self.get_algo_app_bytecode(app_id)
 
         if expected_app_bytecode.approval != approval_bytecode:
             return False

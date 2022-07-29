@@ -11,12 +11,17 @@ class OpenSourceParser:
 
     def source_from_github_file_url(self, github_file_url: str) -> str:
         """Return the source code text given a standard Github file URL"""
+        if github_file_url.contains("https://raw.githubusercontent.com"):
+            resp = requests.get(github_file_url)
+            if resp.status_code != 200:
+                raise HTTPError
+            return resp.text()
         removed_blob_url = github_file_url.replace("blob/", "")
         with_raw_base_url = removed_blob_url.replace("https://github.com", "https://raw.githubusercontent.com")
         resp = requests.get(with_raw_base_url)
         if resp.status_code != 200:
-            return HTTPError
-        # TODO: can i just return text content?
+            raise HTTPError
+        # TODO: just return text content?
         return resp.text()
 
     def source_from_gitlab_file_url(self, gitlab_file_url: str) -> str:
