@@ -3,7 +3,7 @@ from requests.models import HTTPError
 
 class AlgoAppBytecode:
     """
-    Represents an Algorand Applications on-chain bytecode for an approval and clear_state program
+    Represents an Algorand Applications bytecode for an approval and clear_state program
     """
     def __init__(self, approval: str, clear_state: str) -> None:
         self.approval = approval
@@ -12,8 +12,7 @@ class AlgoAppBytecode:
 class AlgoApiClient:
     """
     API client for interacting with an Algorand node or API server e.g. PureStake
-    Currently is focused on TEAL/PyTeal source code comparisons with on-chain applications bytecode
-    If an API key is provided, it will be passed to HTTP/S calls as query parameter 'api-key', otherwise no API key parameter will be passed
+    Focused on TEAL/PyTeal source code comparisons with on-chain applications bytecode
     """
     def __init__(self, base_url: str, api_key: str):
         self.base_url = base_url
@@ -60,7 +59,7 @@ class AlgoApiClient:
         """
         Compile the TEAL source code to get the bytecode for approval and clear_state
         Make a request to receive the bytecode that matches the application ID
-        Compare the compiled bytecode to the bytecode of that application ID's
+        Compare the compiled bytecode to the bytecode of that application IDs
         """
         approval_bytecode = self.compile_teal(teal_approval)
         clear_state_bytecode = self.compile_teal(teal_clear_state)

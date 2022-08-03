@@ -26,3 +26,6 @@ class OpenSourceParser:
 
     def source_from_gitlab_file_url(self, gitlab_file_url: str) -> str:
         pass
+
+    def parse_pyteal(self):
+        pass
