@@ -4,6 +4,7 @@ from requests.models import HTTPError
 class AlgoAppBytecode:
     """
     Represents an Algorand Applications bytecode for an approval and clear_state program
+    Bytecode within this library is encoded in base64
     """
     def __init__(self, approval: str, clear_state: str) -> None:
         self.approval = approval
@@ -26,15 +27,23 @@ class AlgoApiClient:
             url = f"{self.base_url}/{endpoint}"
         return url
 
-    def api_call_with_key(self, endpoint: str, args: str, verb: str, payload: dict) -> requests.Response:
-        """Helper method to make an API call with key"""
+    def api_call_with_key(self, endpoint: str, args: str, verb: str, json_payload: dict, body_payload: str) -> requests.Response:
+        """
+        Helper method to make an API call with key
+        2 verbs are supported, GET and POST
+        For GET verb the last 2 parameters body_payload and json_payload will not be used
+        For POST verb either body_payload or json_payload will be used, if both are provided only body_payload will be sent
+        A HTTPError will be raised for any non-200 return code from the endpoint
+        """
         url = self.format_api_call(endpoint, args)
         api_key = {"x-api-key", self.api_key}
         if verb == "GET":
             resp = requests.get(url, headers=api_key)
         elif verb == "POST":
-            if payload:
-                resp = requests.post(url, headers=api_key, json=payload)
+            if body_payload:
+                resp = requests.post(url, headers=api_key, data=body_payload)
+            elif json_payload:
+                resp = requests.post(url, headers=api_key, json=json_payload)
             else:
                 resp = requests.post(url, headers=api_key)
         if resp.status_code != 200:
@@ -42,17 +51,19 @@ class AlgoApiClient:
         return resp
 
     def get_algo_app_bytecode(self, app_id: str) -> AlgoAppBytecode:
-        """Makes a call to the /v2/applications/{app_id} endpoint. Parses out and returns the approval and clear_state program bytecode"""
-        resp = self.api_call_with_key(f"v2/applications/{app_id}", None, "GET", None)
+        """
+        Makes a call to the /v2/applications/{app_id} endpoint. 
+        Parses out and returns the approval and clear_state program bytecode in base64
+        """
+        resp = self.api_call_with_key(f"v2/applications/{app_id}", None, "GET", None, None)
         resp_json = resp.json()
-        approval_bytecode = resp_json['approval']
-        clear_state_bytecode = resp_json['clear_state']
+        approval_bytecode = resp_json["approval"]
+        clear_state_bytecode = resp_json["clear_state"]
         return AlgoAppBytecode(approval_bytecode, clear_state_bytecode)
 
     def compile_teal(self, teal: str) -> str:
         """Given TEAL source code make a call to the /v2/teal/compile endpoint and return the compiled bytecode"""
-        payload = {"teal": teal}
-        resp = self.api_call_with_key("v2/teal/compile", None, "POST", payload)
+        resp = self.api_call_with_key("v2/teal/compile", None, "POST", None, teal)
         return resp.text()
 
     def compare_teal_to_app(self, teal_approval: str, teal_clear_state: str, app_id: str) -> bool:
