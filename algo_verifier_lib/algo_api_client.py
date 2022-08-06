@@ -1,5 +1,4 @@
 import requests
-from requests.models import HTTPError
 
 class AlgoAppBytecode:
     """
@@ -36,7 +35,7 @@ class AlgoApiClient:
         A HTTPError will be raised for any non-200 return code from the endpoint
         """
         url = self.format_api_call(endpoint, args)
-        api_key = {"x-api-key", self.api_key}
+        api_key = {"x-api-key": self.api_key}
         if verb == "GET":
             resp = requests.get(url, headers=api_key)
         elif verb == "POST":
@@ -46,8 +45,7 @@ class AlgoApiClient:
                 resp = requests.post(url, headers=api_key, json=json_payload)
             else:
                 resp = requests.post(url, headers=api_key)
-        if resp.status_code != 200:
-            raise HTTPError
+        resp.raise_for_status()
         return resp
 
     def get_algo_app_bytecode(self, app_id: str) -> AlgoAppBytecode:
@@ -56,15 +54,19 @@ class AlgoApiClient:
         Parses out and returns the approval and clear_state program bytecode in base64
         """
         resp = self.api_call_with_key(f"v2/applications/{app_id}", None, "GET", None, None)
+        resp.raise_for_status()
         resp_json = resp.json()
-        approval_bytecode = resp_json["approval"]
-        clear_state_bytecode = resp_json["clear_state"]
+        resp_json_params = resp_json["params"]
+        approval_bytecode = resp_json_params["approval-program"]
+        clear_state_bytecode = resp_json_params["clear-state-program"]
         return AlgoAppBytecode(approval_bytecode, clear_state_bytecode)
 
     def compile_teal(self, teal: str) -> str:
         """Given TEAL source code make a call to the /v2/teal/compile endpoint and return the compiled bytecode"""
         resp = self.api_call_with_key("v2/teal/compile", None, "POST", None, teal)
-        return resp.text()
+        resp.raise_for_status()
+        resp_json = resp.json()
+        return resp_json["result"]
 
     def compare_teal_to_app(self, teal_approval: str, teal_clear_state: str, app_id: str) -> bool:
         """

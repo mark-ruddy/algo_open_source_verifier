@@ -1,17 +1,17 @@
-from open_source_parser import OpenSourceParser
+from .open_source_parser import OpenSourceParser
 
-def setup_open_source_parser_github() -> OpenSourceParser:
-    return OpenSourceParser("https://github.com")
-
-def setup_open_source_parser_gitlab() -> OpenSourceParser:
-    return OpenSourceParser("https://gitlab.com")
+EXPECTED_LINUX_COCCI_CONF = """
+[spatch]
+\toptions = --timeout 200
+\toptions = --use-gitgrep
+"""
 
 def test_source_from_github_file_url():
-    parser = setup_open_source_parser_github()
-    source_code = parser.source_from_github_file_url("TODO")
-    assert source_code == "TODO"
+    parser = OpenSourceParser()
+    source_code = parser.source_from_github_file_url("https://github.com/torvalds/linux/blob/master/.cocciconfig")
+    assert source_code.strip() == EXPECTED_LINUX_COCCI_CONF.strip()
 
 def test_source_from_gitlab_file_url():
-    parser = setup_open_source_parser_gitlab()
-    source_code = parser.source_from_gitlab_file_url("TODO")
-    assert source_code == "TODO"
+    parser = OpenSourceParser()
+    source_code = parser.source_from_gitlab_file_url("https://gitlab.com/linux-kernel/stable/-/blob/master/.cocciconfig")
+    assert source_code.strip() == EXPECTED_LINUX_COCCI_CONF.strip()
