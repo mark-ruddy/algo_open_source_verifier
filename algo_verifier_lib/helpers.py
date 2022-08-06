@@ -1,8 +1,8 @@
 from dotenv import dotenv_values
-from .algo_api_client import AlgoApiClient, AlgoAppBytecode
+from .algo_api_client import AlgoApiClient
 from .open_source_parser import OpenSourceParser
 
-def teal_and_app_id_matches(approval_url: str, clear_state_url: str, app_id: str) -> bool:
+def teal_urls_match_app_id(approval_url: str, clear_state_url: str, app_id: str) -> bool:
     """The most straightforward case - 2 TEAL source code URLs are provided with an application ID to compare against"""
 
     parser = OpenSourceParser()
