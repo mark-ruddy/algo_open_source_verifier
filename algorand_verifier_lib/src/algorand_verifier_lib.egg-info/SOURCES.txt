@@ -1,0 +1,13 @@
+setup.py
+src/algorand_verifier_lib/__init__.py
+src/algorand_verifier_lib/algo_api_client.py
+src/algorand_verifier_lib/helpers.py
+src/algorand_verifier_lib/open_source_parser.py
+src/algorand_verifier_lib/test_algo_api_client.py
+src/algorand_verifier_lib/test_helpers.py
+src/algorand_verifier_lib/test_open_source_parser.py
+src/algorand_verifier_lib.egg-info/PKG-INFO
+src/algorand_verifier_lib.egg-info/SOURCES.txt
+src/algorand_verifier_lib.egg-info/dependency_links.txt
+src/algorand_verifier_lib.egg-info/requires.txt
+src/algorand_verifier_lib.egg-info/top_level.txt
