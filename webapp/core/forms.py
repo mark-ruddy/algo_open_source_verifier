@@ -12,8 +12,8 @@ class AlgoSourceVerifyForm(forms.Form):
 """
 
 class AlgoSourceVerifyForm(forms.Form):
-    contract_types = forms.ChoiceField(label="Contract Source Code Type(WIP)", choices=[("TEAL", "TEAL"), ("PyTeal", "PyTeal"), ("Reach", "Reach")])
-    approval_teal_url = forms.URLField(label="Approval TEAL Source Code URL")
+    contract_type = forms.ChoiceField(label="Contract Source Code Type(WIP)", choices=[("TEAL", "TEAL"), ("PyTeal", "PyTeal"), ("Reach", "Reach")])
+    approval_url = forms.URLField(label="Approval TEAL Source Code URL")
     clear_state_url = forms.URLField(label="Clear State TEAL Source Code URL")
     # NOTE: Algorand application IDs are always length 9 afaik
     app_id = forms.CharField(label="Algorand Application ID", max_length=9, min_length=9)
