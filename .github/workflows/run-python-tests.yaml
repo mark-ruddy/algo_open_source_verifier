@@ -16,7 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: UKnowWhoIm/django-test-action@v0.6
-        working-directory: ./webapp
+      - uses: samwlms/pytest-django-action@v1.9
+        with:
+          args: pytest --ds=webapp.settings
     env:
       PURESTAKE_API_KEY: '${{ secrets.PURESTAKE_API_KEY }}'
