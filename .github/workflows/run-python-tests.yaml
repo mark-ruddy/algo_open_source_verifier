@@ -12,11 +12,12 @@ jobs:
       - run: python -m pytest algorand_verifier_lib/src/algorand_verifier_lib
     env:
       PURESTAKE_API_KEY: '${{ secrents.PURESTAKE_API_KEY }}'
-  run-webapp-tests: null
-  steps:
-    - uses: actions/checkout@v3
-    - uses: UKnowWhoIm/django-test-action@v0.6
-      with:
-        settings-dir-path: webapp
-      env:
-        PURESTAKE_API_KEY: '${{ secrents.PURESTAKE_API_KEY }}'
+  run-webapp-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: UKnowWhoIm/django-test-action@v0.6
+        with:
+          settings-dir-path: webapp
+    env:
+      PURESTAKE_API_KEY: '${{ secrents.PURESTAKE_API_KEY }}'
