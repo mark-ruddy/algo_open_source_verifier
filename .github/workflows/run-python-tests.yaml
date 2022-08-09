@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: samwlms/pytest-django-action@1.9
+      - uses: mark-ruddy/pytest-django-action-stepped@Testing-2
         with:
           args: pip install -r webapp/requirements.txt && pytest
     env:
