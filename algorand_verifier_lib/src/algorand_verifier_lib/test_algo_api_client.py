@@ -1,14 +1,14 @@
 import os
 import pytest
-from dotenv import dotenv_values
+from dotenv import load_dotenv, find_dotenv
 from requests import HTTPError
 from .algo_api_client import *
 
 TINYMAN_AMM_APP_ID = "552635992"
 
 def setup_purestake_algo_client() -> AlgoApiClient:
-    envvars = dotenv_values(".env")
-    return AlgoApiClient("https://mainnet-algorand.api.purestake.io/ps2", envvars["PURESTAKE_API_KEY"])
+    load_dotenv()
+    return AlgoApiClient("https://mainnet-algorand.api.purestake.io/ps2", os.getenv("PURESTAKE_API_KEY"))
 
 def setup_sample_algo_client() -> AlgoApiClient:
     return AlgoApiClient("https://test.api", None)
