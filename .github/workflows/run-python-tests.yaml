@@ -11,7 +11,7 @@ jobs:
       - run: python -m pip install -r algorand_verifier_lib/requirements.txt
       - run: python -m pytest algorand_verifier_lib/src/algorand_verifier_lib
     env:
-      PURESTAKE_API_KEY: '${{ secrents.PURESTAKE_API_KEY }}'
+      PURESTAKE_API_KEY: '${{ secrets.PURESTAKE_API_KEY }}'
   run-webapp-tests:
     runs-on: ubuntu-latest
     steps:
@@ -20,4 +20,4 @@ jobs:
         with:
           settings-dir-path: webapp
     env:
-      PURESTAKE_API_KEY: '${{ secrents.PURESTAKE_API_KEY }}'
+      PURESTAKE_API_KEY: '${{ secrets.PURESTAKE_API_KEY }}'
