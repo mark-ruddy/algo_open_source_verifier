@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-nodeport
+spec:
+  selector:
+    app: {{ .Release.Name }}-app
+  type: NodePort
+  ports:
+    - protocol: TCP
+      name: http
+      port: 8000
+      targetPort: 8000
+      # Set the nodePort here to get a semi-consistent URL
+      nodePort: 31850

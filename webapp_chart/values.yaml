@@ -1,0 +1,9 @@
+replicas: 1
+purestake_api_key: ""
+
+image:
+  prefix: localhost:30000
+  name: algorand_webapp
+  tag: 0.0.3
+  pullPolicy: Always
+  port: 8000
