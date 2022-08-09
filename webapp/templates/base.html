@@ -3,20 +3,23 @@
 <html lang="en">
 
 <head>
-  <title>Algo OSS Verifier</title>
+  <title>Algorand OSS Verifier</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'fa/all.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/all.css' %}"
+  <link rel="stylesheet" href="{% static 'css/all.css' %}">
+  <!-- Bootstrap JS requires jquery and popper to be included -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Algo OSS Verifier</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Algorand OSS Verifier</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="https://github.com/mark-ruddy/algo_open_source_verifier" target="_blank">Github</a>
@@ -26,7 +29,7 @@
   </nav>
   {% block content %}{% endblock content %}
   <footer class="custom-footer-container">
-    Algo OSS Verifier @ 2022
+    Algorand OSS Verifier @ 2022
   </footer>
 </body>
 </html>
