@@ -19,5 +19,6 @@ jobs:
       - uses: UKnowWhoIm/django-test-action@v0.6
         with:
           settings-dir-path: webapp
+          requirements-file: webapp/requirements.txt
     env:
       PURESTAKE_API_KEY: '${{ secrets.PURESTAKE_API_KEY }}'
