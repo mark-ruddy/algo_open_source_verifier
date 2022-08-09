@@ -10,7 +10,7 @@
     {% csrf_token %}
     {{ form|crispy }}
     <div style="margin-bottom: 10px">
-      <button type="submit" name="verify" class="btn btn-success" title="Verify contract matches on-chain bytecode only">Verify</button>
+      <button type="submit" name="verify" class="btn btn-success" title="Verify contract matches on-chain bytecode without submitting to list">Verify</button>
       <button type="submit" name="verify_submit" class="btn btn-success" title="Verify and if successful submit result to the list">Verify and Submit</button>
     </div>
   </form>
@@ -28,7 +28,7 @@
 </div>
 <div class="container", style="margin-top: 40px">
   <h3>Submitted Source Code Verified Contracts</h3>
-  <p>A list of user-submitted contracts verified against source code URL(s) at the time of submission. Ensure to re-verify at current time and check that the source code URL(s) are official before trusting a contract as verified.</p>
+  <p>A list of user-submitted contracts verified against source code URL(s) at the time of submission. Ensure to re-verify at current time and check that the source code URL(s) are official before trusting a contract as source code verified.</p>
   {% if verified_contracts %}
     <ul class="list-group" style="white-space: pre-line">
     {% for contract in verified_contracts %}
@@ -38,6 +38,7 @@
     </li>
     {% endfor %}
     </ul>
+  {% include "pagination.html" with page=verified_contracts %}
   {% endif %}
 </div>
 {% endblock content %}

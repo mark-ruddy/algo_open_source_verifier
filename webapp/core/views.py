@@ -12,8 +12,8 @@ def index(request):
         if form.is_valid():
             # TODO: parse the form, make the request to the library, get the result and pass it on the the verify_result handler
             # TODO: probably need to differentiate between TEAL, PyTEAL etc.
-            print(form.cleaned_data["approval_teal_url"], form.cleaned_data["clear_state_url"], form.cleaned_data["app_id"])
-            matches = teal_urls_match_app_id(form.cleaned_data["approval_teal_url"], form.cleaned_data["clear_state_url"], form.cleaned_data["app_id"])
+            print(form.cleaned_data["approval_url"], form.cleaned_data["clear_state_url"], form.cleaned_data["app_id"])
+            matches = teal_urls_match_app_id(form.cleaned_data["approval_url"], form.cleaned_data["clear_state_url"], form.cleaned_data["app_id"])
             print(matches)
             if matches:
                 messages.success(request, f"Application ID {form.cleaned_data['app_id']} matches the provided source code URLs")
@@ -30,12 +30,11 @@ def index(request):
                 )
                 new_verified_contract.save()
                 messages.success(request, f"Application ID {form.cleaned_data['app_id']} submitted to list of verified contracts")
-            return render(request, "index.html", {"form": form})
     else:
         form = AlgoSourceVerifyForm()
 
     verified_contract_object_list = VerifiedContract.objects.all()
-    paginator = Paginator(verified_contract_object_list, 3)
+    paginator = Paginator(verified_contract_object_list, 5)
     page = request.GET.get('page')
     try:
         verified_contracts = paginator.page(page)
@@ -44,7 +43,7 @@ def index(request):
     except EmptyPage:
         verified_contracts = paginator.page(paginator.num_pages)
 
-    return render(request, "index.html", {"form": form, "verified_contracts": verified_contracts})
-
-def about(request):
-    return render(request, "about.html", {})
+    return render(request, "index.html", {
+        "form": form,
+        "verified_contracts": verified_contracts,
+    })
