@@ -12,9 +12,7 @@ def index(request):
         if form.is_valid():
             # TODO: parse the form, make the request to the library, get the result and pass it on the the verify_result handler
             # TODO: probably need to differentiate between TEAL, PyTEAL etc.
-            print(form.cleaned_data["approval_url"], form.cleaned_data["clear_state_url"], form.cleaned_data["app_id"])
             matches = teal_urls_match_app_id(form.cleaned_data["approval_url"], form.cleaned_data["clear_state_url"], form.cleaned_data["app_id"])
-            print(matches)
             if matches:
                 messages.success(request, f"Application ID {form.cleaned_data['app_id']} matches the provided source code URLs")
             else:
