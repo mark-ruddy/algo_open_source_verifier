@@ -2,7 +2,7 @@
 The Algorand Open Source Verifier provides tools to check Algorand contract source code against on-chain applications.  
 
 It is made up of 2 parts currently:
-- The Python Algorand Verifier Library - it is a normal Python package that can be imported anywhere https://pypi.org/project/algorand-verifier-lib/. For more detail on library see it's [README.md](algorand_verifier_lib/README.md)
+- The Python [Algorand Verifier Library](https://pypi.org/project/algorand-verifier-lib/) - it is a normal Python package that can be imported anywhere. For more detail on library see it's [README.md](algorand_verifier_lib/README.md)
 - A Django Webapp which utilises the library features
 
 ## Django Webapp
@@ -10,7 +10,7 @@ The webapp provides an easy-to-use GUI to the verifier library. A simple form is
 
 If the "Verify and Submit" button is clicked, assuming the contract is verified, then it will be added to the list maintained by the Django app. This allows other users visiting the site to see recently verified contracts.  
 
-### Technical Implementation
+### Technical Design
 It uses the `helper` functions from the library, which assume the simplest form of Algorand API communication, using the Purestake mainnet endpoint with a Purestake API key.  
 
 It currently uses a `sqlite` database which is Django's default. This DB is stored as a file at `webapp/db.sqlite3`. In a real deployment `sqlite` could be continued to be used for most cases for relatively low-traffic website, and the `db.sqlite3` could be easily backed up from the deployment servers.

@@ -2,8 +2,8 @@ import requests
 
 class OpenSourceParser:
     """
-    Used to parse Open Source websites for TEAL contracts
-    Currently supports Github and Gitlab
+    Used to parse Open Source websites for TEAL contracts.
+    Currently supports Github and Gitlab.
     """
     GITHUB_BASE_URL = "https://github.com"
     GITHUB_RAW_BASE_URL = "https://raw.githubusercontent.com"
@@ -11,8 +11,8 @@ class OpenSourceParser:
 
     def source_from_any(self, url: str) -> str:
         """
-        Helper method that simplifies using this parser for URLs that aren't guaranteed to be on a certain hoster e.g. Github
-        Attempts to make a request against either Github or Gitlab by interpreting the URL
+        Helper method that simplifies using this parser for URLs that aren't guaranteed to be on a certain hoster e.g. Github.
+        Attempts to make a request against either Github or Gitlab by interpreting the URL.
         If neither a Github or Gitlab URL is identified, make a request against the URL with no parsing - could be useful for source code on miscellaneous webservers etc.
         """
         if self.GITHUB_BASE_URL in url or self.GITHUB_RAW_BASE_URL in url:
