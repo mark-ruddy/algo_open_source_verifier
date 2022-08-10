@@ -1,5 +1,5 @@
 # Algorand Verifier Library
-Python library for verifying on-chain Algorand applications with source code.
+Python library for verifying on-chain Algorand applications with source code. Available on PyPi at <https://pypi.org/project/algorand-verifier-lib/#description>
 
 ## Usage
 Install using pip: `pip install algorand_verifier_lib`
