@@ -5,7 +5,7 @@ Python library for verifying on-chain Algorand applications with source code. Av
 Install using pip: `pip install algorand_verifier_lib`
 
 ### Using helper functions with PureStake API
-In the most general case, the simplest way to use hte library is to use functions from `helpers.py` with the PureStake API.  
+In the most general case, the simplest way to use the library is to use functions from `helpers.py` with the PureStake API.  
 
 First set the PURESTAKE_API_KEY envvar either on your environment or in a `.env` file in the working directory for your app:
 ```

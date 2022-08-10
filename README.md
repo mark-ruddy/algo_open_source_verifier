@@ -37,7 +37,7 @@ python manage.py runserver 0.0.0.0:8000
 ### Helm Deployment
 To deploy on a Kubernetes cluster, a Helm chart is provided.
 
-Build a new container image of the webapp - assuming you have a registry running at `localhost:30000` the following code will work:
+Build a new container image of the webapp - assuming you have a registry running at `localhost:30000`:
 ```
 podman build . -t localhost:30000/algorand_webapp:0.0.2
 podman push localhost:30000/algorand_webapp:0.0.2
