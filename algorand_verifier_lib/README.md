@@ -56,7 +56,9 @@ The library is based on 3 parts with different responsibilities:
 - `helpers.py` provides endpoint, most-general case usage functions that combine both `algo_api_client.py` and `open_source_parser.py`. It is for when the caller does not require much control such as `teal_urls_match_app_id`, which will use the PureStake API on the Algorand mainnet to verify a TEAL contract. The Django `webapp` in this repo only uses functions from `helpers.py` currently as it doesn't require any special API settings etc.
 
 ## Testing
-The tests for the library use the PureStake API and make real API calls so they can take some time, but is usually under 10 seconds. The tests will run with Github Actions CI on every push, but it sometimes may be required to run the tests locally.
+The tests for the library use the PureStake API and make real API calls so they can take some time, usually though no more than 10 seconds.  
+
+The tests will run with Github Actions CI on every push, but it sometimes may be required to run the tests locally.  
 
 Assuming you are in the `algorand_verifier_lib` lib directory that contains this `README.md`:
 ```
