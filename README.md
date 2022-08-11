@@ -1,13 +1,14 @@
 # Algorand Open Source Verifier
 The Algorand Open Source Verifier provides tools to check Algorand contract source code against on-chain applications.  
-
-Currently the verifier supports TEAL source code only - [Why PyTeal and Reach is not Currently Supported](algorand_verifier_lib/README.md#why-pyteal-and-reach-is-not-currently-supported)
-
-Live demo webapp, running on a Linode Debian server: <http://212.111.41.127/>
+Currently the verifier supports TEAL source code only - [Why PyTeal and Reach is not Currently Supported](algorand_verifier_lib/README.md#why-pyteal-and-reach-is-not-currently-supported)  
 
 It is made up of 2 parts currently:
 - The Python [Algorand Verifier Library](https://pypi.org/project/algorand-verifier-lib/) - which is a normal Python package that can be imported. For more detail on the library see it's [README.md](algorand_verifier_lib/README.md)
 - A Django Webapp which imports the library
+
+Links:
+- Video demo: <https://www.youtube.com/watch?v=VADi9iP_IE8>  
+- Live demo webapp, running on a Linode Debian server: <http://212.111.41.127/>  
 
 ## Django Webapp
 The webapp provides an easy-to-use GUI interface to the verifier library. A simple form is used with 2 options "Verify" and "Verify and Submit" - in both cases the verification takes place for the provided contract source code and application ID, which checks if it matches the on-chain application.  
