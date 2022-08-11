@@ -3,7 +3,7 @@ The Algorand Open Source Verifier provides tools to check Algorand contract sour
 
 Currently the verifier supports TEAL source code only - [Why PyTeal and Reach is not Currently Supported](algorand_verifier_lib/README.md#why-pyteal-and-reach-is-not-currently-supported)  
 
-It is made up of 2 parts currently:
+It is made up of 2 parts:
 - The Python [Algorand Verifier Library](https://pypi.org/project/algorand-verifier-lib/) - which is a normal Python package that can be imported. For more detail on the library see it's [README.md](algorand_verifier_lib/README.md)
 - A Django Webapp which imports the library
 
