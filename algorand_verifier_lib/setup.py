@@ -8,7 +8,7 @@ setup(
     name='algorand_verifier_lib',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version='0.42',
+    version='0.43',
     license='MIT',
     author='Mark Ruddy',
     author_email='1markruddy@gmail.com',

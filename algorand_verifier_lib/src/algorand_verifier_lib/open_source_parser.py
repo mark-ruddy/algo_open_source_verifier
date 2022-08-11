@@ -17,7 +17,7 @@ class OpenSourceParser:
         """
         if self.GITHUB_BASE_URL in url or self.GITHUB_RAW_BASE_URL in url:
             return self.source_from_github_file_url(url)
-        elif self.GITHUB_BASE_URL in url:
+        elif self.GITLAB_BASE_URL in url:
             return self.source_from_gitlab_file_url(url)
         else:
             resp = requests.get(url)
