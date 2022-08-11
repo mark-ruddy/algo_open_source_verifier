@@ -6,6 +6,7 @@ class VerifiedContract(models.Model):
     approval_url = models.CharField(max_length=65536)
     clear_state_url = models.CharField(max_length=65536)
     app_id = models.CharField(max_length=9)
+    submitter_ip = models.CharField(max_length=128, default="DEFAULT")
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -1,6 +1,8 @@
 # Algorand Open Source Verifier
 The Algorand Open Source Verifier provides tools to check Algorand contract source code against on-chain applications.  
 
+Currently the verifier supports TEAL source code only, see [Why PyTeal and Reach is not Currently Supported](algorand_verifier_lib/README.md#why-pyteal-and-reach-is-not-currently-supported)
+
 It is made up of 2 parts currently:
 - The Python [Algorand Verifier Library](https://pypi.org/project/algorand-verifier-lib/) - which is a normal Python package that can be imported. For more detail on the library see it's [README.md](algorand_verifier_lib/README.md)
 - A Django Webapp which imports the library
@@ -22,7 +24,8 @@ To deploy normally without Kubernetes on a Linux system.
 
 First initialise a virtualenv and install the dependencies of the webapp:
 ```
-cd webapp
+git clone https://github.com/mark-ruddy/algo_open_source_verifier
+cd algo_open_source_verifier/webapp
 python -m venv venv
 . venv/bin/activate
 pip install -r requirements.txt
