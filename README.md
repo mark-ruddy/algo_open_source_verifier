@@ -8,7 +8,7 @@ It is made up of 2 parts currently:
 - A Django Webapp which imports the library
 
 ## Django Webapp
-The webapp provides an easy-to-use GUI to the verifier library. A simple form is used with 2 options "Verify" and "Verify and Submit" - in both cases the verification takes place for the provided contract source code and application ID, which checks if it matches the on-chain application.  
+The webapp provides an easy-to-use GUI interface to the verifier library. A simple form is used with 2 options "Verify" and "Verify and Submit" - in both cases the verification takes place for the provided contract source code and application ID, which checks if it matches the on-chain application.  
 
 If the "Verify and Submit" button is clicked, assuming the contract is verified, then it will be added to the list maintained by the Django app. This allows other users visiting the site to see recently verified contracts.  
 
@@ -25,14 +25,14 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-Export a valid Purestake API key on the environment and launch the server:
+Set a valid Purestake API key on the environment and launch the server:
 ```
 export PURESTAKE_API_KEY=XYZ
 python manage.py runserver 0.0.0.0:8000
 ```
 
 ### Helm Deployment on a Kubernetes Cluster
-To deploy on a Kubernetes cluster, a Helm chart is provided.
+A Helm chart is provided for deploying on a Kubernetes cluster.
 
 Build a new container image of the webapp - assuming you have a registry running at `localhost:30000`:
 ```
@@ -64,3 +64,6 @@ The webapp uses the `helper` functions from the library, which assume the simple
 Currently `sqlite` is used as the database which is Django's default. This DB is stored as a file at `webapp/db.sqlite3`. In a real deployment `sqlite` could be continued to be used for most cases, and the `db.sqlite3` could be easily backed up from the deployment servers.
 
 There is no javascript frontend library used etc., just pure Django with MVC model. The frontend is styled and made responsive using `bootstrap4`.
+
+### Continuous Integration
+The CI uses github actions and is very simple - it runs the verifier library tests and also the webapp Django tests. This provides confidence on each commit that the app is working as expected.
