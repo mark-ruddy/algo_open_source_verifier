@@ -12,14 +12,8 @@ The webapp provides an easy-to-use GUI to the verifier library. A simple form is
 
 If the "Verify and Submit" button is clicked, assuming the contract is verified, then it will be added to the list maintained by the Django app. This allows other users visiting the site to see recently verified contracts.  
 
-### Technical Design
-The webapp uses the `helper` functions from the library, which assume the simplest form of Algorand API communication, using the Purestake mainnet endpoint with a Purestake API key.  
-
-Currently `sqlite` is used as the database which is Django's default. This DB is stored as a file at `webapp/db.sqlite3`. In a real deployment `sqlite` could be continued to be used for most cases, and the `db.sqlite3` could be easily backed up from the deployment servers.
-
-There is no javascript frontend library used etc., just pure Django with MVC model. The frontend is styled and made responsive using `bootstrap4`.
-
-### Deployment
+## Deployment
+### Linux Deployment
 To deploy normally without Kubernetes on a Linux system.  
 
 First initialise a virtualenv and install the dependencies of the webapp:
@@ -37,7 +31,7 @@ export PURESTAKE_API_KEY=XYZ
 python manage.py runserver 0.0.0.0:8000
 ```
 
-### Helm Deployment
+### Helm Deployment on a Kubernetes Cluster
 To deploy on a Kubernetes cluster, a Helm chart is provided.
 
 Build a new container image of the webapp - assuming you have a registry running at `localhost:30000`:
@@ -63,3 +57,10 @@ If your host machine is not a node, the app should be available at the `31850` p
 ```
 kubectl get nodes -owide
 ```
+
+### Technical Design
+The webapp uses the `helper` functions from the library, which assume the simplest form of Algorand API communication, using the Purestake mainnet endpoint with a Purestake API key.  
+
+Currently `sqlite` is used as the database which is Django's default. This DB is stored as a file at `webapp/db.sqlite3`. In a real deployment `sqlite` could be continued to be used for most cases, and the `db.sqlite3` could be easily backed up from the deployment servers.
+
+There is no javascript frontend library used etc., just pure Django with MVC model. The frontend is styled and made responsive using `bootstrap4`.
