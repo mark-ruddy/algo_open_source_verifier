@@ -3,6 +3,8 @@ The Algorand Open Source Verifier provides tools to check Algorand contract sour
 
 Currently the verifier supports TEAL source code only - [Why PyTeal and Reach is not Currently Supported](algorand_verifier_lib/README.md#why-pyteal-and-reach-is-not-currently-supported)
 
+Live demo webapp, running on a Linode Debian server: <http://212.111.41.127/>
+
 It is made up of 2 parts currently:
 - The Python [Algorand Verifier Library](https://pypi.org/project/algorand-verifier-lib/) - which is a normal Python package that can be imported. For more detail on the library see it's [README.md](algorand_verifier_lib/README.md)
 - A Django Webapp which imports the library
@@ -25,7 +27,7 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-If this is a production deployment, ensure to change the Django secret key and set debug to False in settings.  
+If this is a production deployment, ensure to change the Django secret key and set debug to False in settings. Also add the external host IP to `ALLOWED_HOSTS` too, if the server hits any problems enable debug mode and check the error.  
 
 Set a valid Purestake API key on the environment and launch the server:
 ```
@@ -33,10 +35,12 @@ export PURESTAKE_API_KEY=XYZ
 python manage.py runserver 0.0.0.0:8000
 ```
 
+If not using SSL, just plain HTTP, then add the `--insecure` flag to the runserver command to allow it to use static files hosted by Django.  
+
 ### Helm Deployment on a Kubernetes Cluster
 A Helm chart is provided for deploying on a Kubernetes cluster.
 
-If this is a production deployment, ensure to change the Django secret key and set debug to False in settings. This must be done before building the container image.  
+If this is a production deployment, ensure to change the Django secret key and set debug to False in settings. Add the external host IP to `ALLOWED_HOSTS`. This must be done before building the container image.  
 
 Build a new container image of the webapp - assuming you have a registry running at `localhost:30000`:
 ```
