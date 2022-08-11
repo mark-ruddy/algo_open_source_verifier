@@ -25,6 +25,8 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
+If this is a production deployment, ensure to change the Django secret key and set debug to False in settings.  
+
 Set a valid Purestake API key on the environment and launch the server:
 ```
 export PURESTAKE_API_KEY=XYZ
@@ -33,6 +35,8 @@ python manage.py runserver 0.0.0.0:8000
 
 ### Helm Deployment on a Kubernetes Cluster
 A Helm chart is provided for deploying on a Kubernetes cluster.
+
+If this is a production deployment, ensure to change the Django secret key and set debug to False in settings. This must be done before building the container image.  
 
 Build a new container image of the webapp - assuming you have a registry running at `localhost:30000`:
 ```
