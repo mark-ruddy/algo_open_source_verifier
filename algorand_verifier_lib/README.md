@@ -113,7 +113,7 @@ if __name__ == "__main__":
       f.write(compiled)
 ```
 
-A problem I have with this is that this introduces a RCE(Remote-Code-Execution) vulnerability to the library, a maliciously written Python source code file could be specified and get executed on the library side, which may be running in a webserver.
+A problem I have with this is that this introduces a RCE(Remote-Code-Execution) vulnerability to the library(NOTE: maybe not - since its executed under compileTeal() which keeps the code in a safe box?), a maliciously written Python source code file could be specified and get executed on the library side, which may be running in a webserver.
 
 - The majority of open source Algorand contracts have a `compiled/` directory or equivalent with the TEAL even if the contract itself is written in PyTeal/Reach. This means that even without this functionality this library should still be able to verify the large majority of open source Algorand contracts.
 
