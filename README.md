@@ -5,11 +5,11 @@ It is made up of 2 parts:
 - The Python [Algorand Verifier Library](https://pypi.org/project/algorand-verifier-lib/) - which is a normal Python package that can be imported. For more detail on the library see it's [README.md](algorand_verifier_lib/README.md)
 - A Django Webapp which imports the library
 
-[PyTeal and Reach is Currently Not Supported by the Library](algorand_verifier_lib/README.md#pyteal-and-reach-is--currently-not-supported). After more research it appears that support for PyTeal and Reach could be achieved securely by utilising Docker images. Without Docker images being used there is a risk of RCE vulnerability in the library if the PyTeal support executes Python code from any specified Github repo. This funtionality is a TODO, as more development is required to add PyTeal/Reach support.
-
 Links:
 - Video demo: <https://www.youtube.com/watch?v=VADi9iP_IE8>  
 - Live demo webapp, running on a Linode Debian server: <http://212.111.41.127/>  
+
+[PyTeal and Reach is Currently Not Supported by the Library](algorand_verifier_lib/README.md#pyteal-and-reach-is--currently-not-supported). After more research it appears that support for PyTeal and Reach could be achieved securely by utilising Docker images. Without Docker images being used there is a risk of RCE vulnerability in the library if the PyTeal support executes Python code from any specified Github repo. This funtionality is a TODO, as more development is required to add PyTeal/Reach support.
 
 ## Django Webapp
 The webapp provides an easy-to-use GUI interface to the verifier library. A simple form is used with 2 options "Verify" and "Verify and Submit" - in both cases the verification takes place for the provided contract source code and application ID, which checks if it matches the on-chain application.  
