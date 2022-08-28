@@ -95,26 +95,5 @@ The library is based on 3 parts with different responsibilities:
 
 This will open your browser at `localhost:8080` with the libraries documentation visible.
 
-### Why PyTeal and Reach is not Currently Supported
+### PyTeal and Reach is Currently Not Supported
 This verifier library works with TEAL only. Support for PyTeal and Reach contracts would be a definite nice-to-have though, for example the `OpenSourceParser` could convert a PyTeal contract to TEAL. Once it's converted to TEAL the normal source code verification logic could be used.  
-
-List of reasons why this is not supported:
-- There is no clear way to convert PyTeal/Reach contracts to TEAL in a generic form, that would work for ALL contracts source code. As discussed below there are some 'hacks' like finding the `approval_program()` function in PyTeal, but naming the function that is just a convention and will not be the same in all contracts.
-- I believe to convert you would need to execute the PyTeal/Reach code, for example the verifier library could add some code to a PyTeal source code file that converts as demonstrated below(example code sourced from https://github.com/ChoiceCoin/Smart_Contracts):
-
-```
-if __name__ == "__main__":
-  with open("compiled/"+ "vote_approval.teal", "w") as f:
-      compiled = compileTeal(approval_program(), mode=Mode.Application, version=2)
-      f.write(compiled)
-
-  with open("compiled/"+"vote_clear_state.teal", "w") as f:
-      compiled = compileTeal(clear_state_program(), mode=Mode.Application, version=2)
-      f.write(compiled)
-```
-
-A problem I have with this is that this introduces a RCE(Remote-Code-Execution) vulnerability to the library(NOTE: maybe not - since its executed under compileTeal() which keeps the code in a safe box?), a maliciously written Python source code file could be specified and get executed on the library side, which may be running in a webserver.
-
-- The majority of open source Algorand contracts have a `compiled/` directory or equivalent with the TEAL even if the contract itself is written in PyTeal/Reach. This means that even without this functionality this library should still be able to verify the large majority of open source Algorand contracts.
-
-Possibly a good solution could be found for converting these PyTeal/Reach contracts to TEAL reliably and safely, if this exists I will 100% implement it. I cannot find a solution currently so this functionality will not be included in this library at this time.
